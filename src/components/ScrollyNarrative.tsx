@@ -67,7 +67,7 @@ function ProgressDot({
 
 export function ScrollyNarrative() {
   return (
-    <main className="relative w-full touch-pan-y">
+    <main className="relative w-full touch-pan-y bg-paper-50">
       <ProgressDots total={speechScenes.length} />
       <NarrativeIntro />
       {speechScenes.map((scene, index) => (
