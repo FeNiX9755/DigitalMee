@@ -110,6 +110,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
       {/* Interactive polaroid stack — top right, photo_2 on top by default */}
       <PolaroidStack />
 
+
       {/* "Our story" card */}
       <motion.div
         initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
@@ -119,6 +120,8 @@ export function LandingPage({ onStart }: LandingPageProps) {
       >
         <article className="relative z-10 mx-auto max-w-xs rounded-sm bg-white px-8 py-10 shadow-polaroid">
           <div className="tape absolute -top-3 left-1/2 h-6 w-20 -translate-x-1/2 -rotate-1 rounded-sm" />
+          <p className="font-body text-[10px] font-semibold tracking-[0.25em] uppercase text-ink-faint">The Next Chapter</p>
+          <div className="my-3 h-px w-8 bg-blush/50" aria-hidden />
           <p className="font-script text-3xl text-rose">our story</p>
           <h1 className="mt-3 font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
             A little book
