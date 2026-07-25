@@ -17,14 +17,14 @@ export function NarrativeIntro() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-md text-center"
         >
-          <p className="font-script text-3xl text-rose">you made it here</p>
-          <h2 className="mt-4 font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">This is for you.</h2>
+          <p className="font-script text-3xl text-rose">for you, Bunny</p>
+          <h2 className="mt-4 font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">I have been saving these words.</h2>
           <p className="mt-5 font-body text-base leading-relaxed text-ink-soft">
             Slow down. Scroll gently.
             <br />
             <span className="italic opacity-80 block mt-1">Please don't turn around yet.</span>
             <br />
-            Each line is something I meant to say out loud.
+            Every word here is something I have been meaning to say.
           </p>
         </motion.div>
 

@@ -1,7 +1,97 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import { useState } from 'react'
 
 type LandingPageProps = {
   onStart: () => void
+}
+
+function PolaroidStack() {
+  const prefersReducedMotion = useReducedMotion()
+  const [photo2OnTop, setPhoto2OnTop] = useState(true)
+
+  const springTransition = prefersReducedMotion
+    ? { duration: 0 }
+    : { type: 'spring' as const, stiffness: 260, damping: 22 }
+
+  // Position presets
+  const frontPos = { rotate: 10, x: 0,   y: 0,  scale: 1    }
+  const backPos  = { rotate: -6, x: -20, y: 14, scale: 0.88 }
+
+  return (
+    <motion.button
+      type="button"
+      onClick={() => setPhoto2OnTop(v => !v)}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.85, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+      className="absolute right-4 top-[10%] z-20 focus:outline-none"
+      style={{ width: 132, height: 200 }}
+      aria-label="Tap to flip photos"
+    >
+      {/* photo_1 — starts behind */}
+      <motion.div
+        animate={photo2OnTop ? backPos : frontPos}
+        transition={springTransition}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: photo2OnTop ? 10 : 20,
+        }}
+        className="w-28 rounded-sm bg-white p-2 pb-7 border border-ink/15"
+      >
+        <div className="tape absolute -top-2.5 left-1/2 z-10 h-4 w-12 -translate-x-1/2 -rotate-1 rounded-sm" />
+        <div className="overflow-hidden rounded-[2px] aspect-[3/4]">
+          <img
+            src="/photo_1.jpg"
+            alt="us"
+            className="h-full w-full object-cover"
+            draggable={false}
+          />
+        </div>
+        <p className="mt-1 text-center font-script text-sm text-ink-faint">us ♡</p>
+      </motion.div>
+
+      {/* photo_2 — starts on top, same position as before */}
+      <motion.div
+        animate={photo2OnTop ? frontPos : backPos}
+        transition={springTransition}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: photo2OnTop ? 20 : 10,
+        }}
+        className="w-28 rounded-sm bg-white p-2 pb-7 border border-ink/15"
+      >
+        <div className="tape absolute -top-2.5 left-1/2 z-10 h-4 w-14 -translate-x-1/2 rotate-2 rounded-sm" />
+        <div className="overflow-hidden rounded-[2px] aspect-[3/4]">
+          <img
+            src="/photo_2.jpg"
+            alt="always"
+            className="h-full w-full object-cover"
+            draggable={false}
+          />
+        </div>
+        <p className="mt-1 text-center font-script text-sm text-ink-faint">always ♡</p>
+      </motion.div>
+
+      {/* Tap hint — clearly visible with bounce */}
+      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-0.5">
+        <motion.span
+          animate={prefersReducedMotion ? {} : { y: [0, -4, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          className="text-base"
+          aria-hidden
+        >
+          ↺
+        </motion.span>
+        <p className="whitespace-nowrap font-script text-sm text-ink-soft">
+          tap to swap
+        </p>
+      </div>
+    </motion.button>
+  )
 }
 
 export function LandingPage({ onStart }: LandingPageProps) {
@@ -17,33 +107,16 @@ export function LandingPage({ onStart }: LandingPageProps) {
         aria-hidden
       />
 
-      {/* Scrapbook polaroids */}
+      {/* Interactive polaroid stack — top right, photo_2 on top by default */}
+      <PolaroidStack />
+
+      {/* "Our story" card */}
       <motion.div
         initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="relative z-10 w-full max-w-sm"
       >
-        <div
-          className="absolute -left-2 top-8 z-0 h-28 w-24 -rotate-6 rounded-sm bg-white shadow-polaroid"
-          aria-hidden
-        >
-          <div className="tape absolute -top-2 left-1/2 h-5 w-14 -translate-x-1/2 -rotate-2 rounded-sm" />
-          <div className="flex h-full items-end justify-center pb-3">
-            <span className="font-script text-lg text-ink-faint">us</span>
-          </div>
-        </div>
-
-        <div
-          className="absolute -right-1 top-20 z-0 h-24 w-20 rotate-8 rounded-sm bg-white shadow-polaroid"
-          aria-hidden
-        >
-          <div className="tape absolute -top-2 left-1/2 h-4 w-12 -translate-x-1/2 rotate-3 rounded-sm" />
-          <div className="flex h-full items-end justify-center pb-2">
-            <span className="font-script text-base text-ink-faint">♥</span>
-          </div>
-        </div>
-
         <article className="relative z-10 mx-auto max-w-xs rounded-sm bg-white px-8 py-10 shadow-polaroid">
           <div className="tape absolute -top-3 left-1/2 h-6 w-20 -translate-x-1/2 -rotate-1 rounded-sm" />
           <p className="font-script text-3xl text-rose">our story</p>
