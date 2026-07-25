@@ -3,7 +3,6 @@ import { FinalScene } from './FinalScene'
 import { NarrativeIntro } from './NarrativeIntro'
 import { ScrollScene } from './ScrollScene'
 import { useScroll, useTransform, motion } from 'framer-motion'
-import { useRef } from 'react'
 
 function ProgressDots({ total }: { total: number }) {
   const { scrollYProgress } = useScroll()
