@@ -54,9 +54,11 @@ export function NarrativeIntro({ onContinue }: NarrativeIntroProps) {
             className="mt-10"
           >
             <p className="mt-4 font-script text-3xl text-ink-faint">
-              when you are ready, click here
+              when you are ready,
             </p>
-            <br />
+            <p className="mt-4 font-script text-2xl text-ink-faint">
+              Click here
+            </p>
             <button
               type="button"
               onClick={onContinue}
