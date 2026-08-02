@@ -45,8 +45,8 @@ export function ScrollScene({ scene, index, total }: ScrollSceneProps) {
   )
   const scrollHintOpacity = useTransform(
     scrollYProgress,
-    [0.1, 0.35],
-    [0.35, 0],
+    index === 0 ? [0, 0.28, 0.5] : [0.1, 0.35],
+    index === 0 ? [1, 0.5, 0] : [0.35, 0],
   )
 
   return (
@@ -84,14 +84,18 @@ export function ScrollScene({ scene, index, total }: ScrollSceneProps) {
           </motion.div>
         </div>
 
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 safe-bottom">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 safe-bottom">
           <motion.div
             style={{ opacity: scrollHintOpacity }}
-            className="flex flex-col items-center gap-1"
+            className="flex flex-col items-center gap-2"
             aria-hidden
           >
-            <span className="font-script text-sm text-ink-faint">scroll</span>
-            <span className="block h-6 w-px bg-ink-faint/40" />
+            <span className="font-script text-base text-ink-faint">keep scrolling</span>
+            <motion.span
+              animate={prefersReducedMotion ? {} : { y: [0, 6, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              className="block h-8 w-px bg-ink-faint/50"
+            />
           </motion.div>
         </div>
       </div>
