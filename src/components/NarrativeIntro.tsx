@@ -22,7 +22,7 @@ export function NarrativeIntro() {
           <p className="mt-5 font-body text-base leading-relaxed text-ink-soft">
             Slow down. Scroll gently.
             <br />
-            <span className="italic opacity-80 block mt-1">Please don't turn around yet.</span>
+            <span className="italic opacity-80 block mt-1">Please don't turn around until the end.</span>
             <br />
             Every word here is something I have been meaning to say.
           </p>

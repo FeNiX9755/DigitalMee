@@ -10,7 +10,7 @@ export const speechScenes: SpeechScene[] = [
     lines: [
       'Bunny,',
       'I wanted you to have a quiet place',
-      'that is only ours.',
+      "that you'd remember.",
     ],
     gradient:
       'linear-gradient(160deg, #fdf8f2 0%, #f5e6dc 45%, #e8d5e8 100%)',
@@ -38,7 +38,7 @@ export const speechScenes: SpeechScene[] = [
   {
     id: 'truth',
     lines: [
-      'You are the person I choose, Bunny,',
+      'You are the person I choose,',
       'in ordinary mornings',
       'and in every uncertain tomorrow.',
     ],
@@ -54,6 +54,16 @@ export const speechScenes: SpeechScene[] = [
     ],
     gradient:
       'linear-gradient(148deg, #ebe0f0 0%, #d4b4c8 40%, #c4a4c0 100%)',
+  },
+  {
+    id: 'sorry',
+    lines: [
+      'I am sorry it took me so long.',
+      'You have always deserved',
+      'to know this.',
+    ],
+    gradient:
+      'linear-gradient(146deg, #e8d8ec 0%, #d0a8c0 42%, #b898b4 100%)',
   },
   {
     id: 'promise',

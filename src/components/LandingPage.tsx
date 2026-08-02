@@ -1,26 +1,26 @@
-import { motion, useReducedMotion } from 'framer-motion'
-import { useState } from 'react'
+import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 
 type LandingPageProps = {
-  onStart: () => void
-}
+  onStart: () => void;
+};
 
 function PolaroidStack() {
-  const prefersReducedMotion = useReducedMotion()
-  const [photo2OnTop, setPhoto2OnTop] = useState(true)
+  const prefersReducedMotion = useReducedMotion();
+  const [photo2OnTop, setPhoto2OnTop] = useState(true);
 
   const springTransition = prefersReducedMotion
     ? { duration: 0 }
-    : { type: 'spring' as const, stiffness: 260, damping: 22 }
+    : { type: "spring" as const, stiffness: 260, damping: 22 };
 
   // Position presets
-  const frontPos = { rotate: 10, x: 0,   y: 0,  scale: 1    }
-  const backPos  = { rotate: -6, x: -20, y: 14, scale: 0.88 }
+  const frontPos = { rotate: 10, x: 0, y: 0, scale: 1 };
+  const backPos = { rotate: -6, x: -20, y: 14, scale: 0.88 };
 
   return (
     <motion.button
       type="button"
-      onClick={() => setPhoto2OnTop(v => !v)}
+      onClick={() => setPhoto2OnTop((v) => !v)}
       initial={prefersReducedMotion ? false : { opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.85, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
@@ -33,7 +33,7 @@ function PolaroidStack() {
         animate={photo2OnTop ? backPos : frontPos}
         transition={springTransition}
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
           zIndex: photo2OnTop ? 10 : 20,
@@ -49,7 +49,9 @@ function PolaroidStack() {
             draggable={false}
           />
         </div>
-        <p className="mt-1 text-center font-script text-sm text-ink-faint">us ♡</p>
+        <p className="mt-1 text-center font-script text-sm text-ink-faint">
+          us ♡
+        </p>
       </motion.div>
 
       {/* photo_2 — starts on top, same position as before */}
@@ -57,7 +59,7 @@ function PolaroidStack() {
         animate={photo2OnTop ? frontPos : backPos}
         transition={springTransition}
         style={{
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
           zIndex: photo2OnTop ? 20 : 10,
@@ -73,14 +75,16 @@ function PolaroidStack() {
             draggable={false}
           />
         </div>
-        <p className="mt-1 text-center font-script text-sm text-ink-faint">always ♡</p>
+        <p className="mt-1 text-center font-script text-sm text-ink-faint">
+          always ♡
+        </p>
       </motion.div>
 
       {/* Tap hint — clearly visible with bounce */}
       <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-0.5">
         <motion.span
           animate={prefersReducedMotion ? {} : { y: [0, -4, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
           className="text-base"
           aria-hidden
         >
@@ -91,15 +95,18 @@ function PolaroidStack() {
         </p>
       </div>
     </motion.button>
-  )
+  );
 }
 
 export function LandingPage({ onStart }: LandingPageProps) {
-  const prefersReducedMotion = useReducedMotion()
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-paper-50 px-6 safe-top safe-bottom">
-      <div className="grain pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+      <div
+        className="grain pointer-events-none absolute inset-0 opacity-70"
+        aria-hidden
+      />
 
       {/* Soft vignette */}
       <div
@@ -110,7 +117,6 @@ export function LandingPage({ onStart }: LandingPageProps) {
       {/* Interactive polaroid stack — top right, photo_2 on top by default */}
       <PolaroidStack />
 
-
       {/* "Our story" card */}
       <motion.div
         initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
@@ -120,7 +126,9 @@ export function LandingPage({ onStart }: LandingPageProps) {
       >
         <article className="relative z-10 mx-auto max-w-xs rounded-sm bg-white px-8 py-10 shadow-polaroid">
           <div className="tape absolute -top-3 left-1/2 h-6 w-20 -translate-x-1/2 -rotate-1 rounded-sm" />
-          <p className="font-body text-[10px] font-semibold tracking-[0.25em] uppercase text-ink-faint">The Next Chapter</p>
+          <p className="font-body text-[10px] font-semibold tracking-[0.25em] uppercase text-ink-faint">
+            The Next Chapter
+          </p>
           <div className="my-3 h-px w-8 bg-blush/50" aria-hidden />
           <p className="font-script text-3xl text-rose">our story</p>
           <h1 className="mt-3 font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
@@ -143,7 +151,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
         <button
           type="button"
           onClick={onStart}
-          className="w-full rounded-full border border-ink/10 bg-ink px-8 py-4 font-body text-sm font-medium tracking-widest text-paper-50 uppercase shadow-polaroid transition-all duration-300 hover:bg-ink-soft active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-rose focus-visible:ring-offset-2 focus-visible:ring-offset-paper-50"
+          className="w-full rounded-full bg-rose px-6 py-4 font-body text-base font-medium tracking-wide text-paper-50 shadow-polaroid transition-transform duration-300 active:scale-[0.98] animate-pulse-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-rose focus-visible:ring-offset-2 focus-visible:ring-offset-paper-50"
         >
           Start
         </button>
@@ -152,5 +160,5 @@ export function LandingPage({ onStart }: LandingPageProps) {
         </p>
       </motion.div>
     </div>
-  )
+  );
 }
