@@ -118,7 +118,7 @@ export function FinalScene() {
     <section
       ref={sectionRef}
       className="relative"
-      style={{ height: "160vh" }}
+      style={{ height: 'calc(100dvh + 36dvh)' }}
       aria-label="Final moment"
     >
       <div className="sticky top-0 z-10 h-[100dvh] w-full overflow-hidden">

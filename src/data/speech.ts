@@ -13,7 +13,7 @@ export const speechScenes: SpeechScene[] = [
       "that you'd remember.",
     ],
     gradient:
-      'linear-gradient(160deg, #fdf8f2 0%, #f5e6dc 45%, #e8d5e8 100%)',
+      'linear-gradient(165deg, #f5ebe3 0%, #edd4d8 40%, #dcc8e0 100%)',
   },
   {
     id: 'memory',

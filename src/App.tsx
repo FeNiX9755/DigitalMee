@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { LandingPage } from './components/LandingPage'
 import { NarrativeIntro } from './components/NarrativeIntro'
 import { ScrollyNarrative } from './components/ScrollyNarrative'
@@ -23,14 +23,25 @@ export default function App() {
     setView('speeches')
   }, [])
 
-  useEffect(() => {
-    if (view === 'intro' || view === 'speeches') {
+  useLayoutEffect(() => {
+    if (view === 'speeches') {
       window.scrollTo(0, 0)
-      document.body.style.overflow = view === 'speeches' ? '' : 'hidden'
+    }
+  }, [view])
+
+  useEffect(() => {
+    const root = document.documentElement
+    if (view === 'intro') {
+      document.body.style.overflow = 'hidden'
+      root.style.overflow = 'hidden'
+    } else if (view === 'speeches') {
+      document.body.style.overflow = ''
+      root.style.overflow = ''
     }
     return () => {
       if (view === 'intro') {
         document.body.style.overflow = ''
+        root.style.overflow = ''
       }
     }
   }, [view])
@@ -63,12 +74,7 @@ export default function App() {
         </motion.div>
       )}
       {view === 'speeches' && (
-        <motion.div
-          key="speeches"
-          initial={prefersReducedMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={pageTransition}
-        >
+        <motion.div key="speeches" initial={false} animate={{ opacity: 1 }}>
           <ScrollyNarrative />
         </motion.div>
       )}

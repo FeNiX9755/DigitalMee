@@ -56,13 +56,25 @@ export function NarrativeIntro({ onContinue }: NarrativeIntroProps) {
             <p className="mt-4 font-script text-3xl text-ink-faint">
               when you are ready,
             </p>
-            <p className="mt-4 font-script text-2xl text-ink-faint">
+            <p className="mt-4 font-script text-xl text-ink-faint">
               Click here
             </p>
+            <motion.span
+              animate={prefersReducedMotion ? {} : { y: [0, 5, 0] }}
+              transition={{
+                duration: 1.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="mt-2 block font-script text-sm text-rose/70"
+              aria-hidden
+            >
+              ↓
+            </motion.span>
             <button
               type="button"
               onClick={onContinue}
-              className="w-full max-w-xs rounded-full bg-rose px-6 py-4 font-body text-base font-medium tracking-wide text-paper-50 shadow-polaroid transition-transform duration-300 active:scale-[0.98] animate-pulse-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-rose focus-visible:ring-offset-2 focus-visible:ring-offset-paper-50"
+              className="mt-2 w-full max-w-xs rounded-full bg-rose px-6 py-4 font-body text-base font-medium tracking-wide text-paper-50 shadow-polaroid transition-transform duration-300 active:scale-[0.98] animate-pulse-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-rose focus-visible:ring-offset-2 focus-visible:ring-offset-paper-50"
             >
               Turn the page
             </button>

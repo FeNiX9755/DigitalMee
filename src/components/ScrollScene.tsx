@@ -7,6 +7,9 @@ import {
 } from 'framer-motion'
 import type { SpeechScene } from '../data/speech'
 
+/** Extra scroll beyond one viewport — drives crossfade without a long “dead” pin. */
+const SCENE_HEIGHT = 'calc(100dvh + 28dvh)'
+
 type ScrollSceneProps = {
   scene: SpeechScene
   index: number
@@ -16,47 +19,51 @@ type ScrollSceneProps = {
 export function ScrollScene({ scene, index, total }: ScrollSceneProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const prefersReducedMotion = useReducedMotion()
+  const useEntranceMotion = index >= 2
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
   })
 
+  const fadeOutRange = [0.38, 0.82] as const
   const opacity = useTransform(
     scrollYProgress,
-    index === 0 ? [0, 0.7, 0.92] : [0, 0.12, 0.72, 0.92],
-    prefersReducedMotion
-      ? index === 0
-        ? [1, 1, 1]
-        : [1, 1, 1, 1]
-      : index === 0
-        ? [1, 1, 0]
-        : [0, 1, 1, 0],
+    [0, fadeOutRange[0], fadeOutRange[1]],
+    prefersReducedMotion ? [1, 1, 1] : [1, 1, 0],
   )
+
   const y = useTransform(
     scrollYProgress,
-    [0, 0.18],
-    prefersReducedMotion || index === 0 ? [0, 0] : [28, 0],
+    useEntranceMotion && !prefersReducedMotion
+      ? [0, 0.22, 0.55]
+      : [0, 0.55],
+    useEntranceMotion && !prefersReducedMotion
+      ? [22, 0, -14]
+      : [0, prefersReducedMotion ? 0 : -14],
   )
   const scale = useTransform(
     scrollYProgress,
-    [0, 0.18],
-    prefersReducedMotion || index === 0 ? [1, 1] : [0.97, 1],
+    [0, 0.22],
+    prefersReducedMotion || !useEntranceMotion ? [1, 1] : [0.98, 1],
   )
   const scrollHintOpacity = useTransform(
     scrollYProgress,
-    index === 0 ? [0, 0.28, 0.5] : [0.1, 0.35],
-    index === 0 ? [1, 0.5, 0] : [0.35, 0],
+    index === 0 ? [0, 0.1, 0.28] : [0.05, 0.22],
+    index === 0 ? [1, 0.55, 0] : [0.45, 0],
   )
 
   return (
     <section
       ref={sectionRef}
       className="relative"
-      style={{ height: '140vh' }}
+      style={{ height: SCENE_HEIGHT }}
       aria-label={`Chapter ${index + 1} of ${total}`}
     >
-      <div className="sticky top-0 z-0 h-[100dvh] w-full overflow-hidden">
+      <div
+        className="sticky top-0 h-[100dvh] w-full overflow-hidden"
+        style={{ zIndex: index + 1 }}
+      >
         <div
           className="absolute inset-0 bg-[length:200%_200%] animate-gradient-shift"
           style={{ backgroundImage: scene.gradient }}
